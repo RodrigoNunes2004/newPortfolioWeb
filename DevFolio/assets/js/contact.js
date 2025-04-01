@@ -26,12 +26,23 @@
           body: formData,
         })
         .then(response => {
+          thisForm.querySelector('.loading').classList.remove('d-block');
           if (response.ok) {
-            return response.json();
+              return response.json().then(data => {
+                  if (data.ok) { // Formspree retorna {"ok": "Your message has been sent."} em caso de sucesso
+                      thisForm.querySelector('.sent-message').innerHTML = data.ok;
+                      thisForm.querySelector('.sent-message').classList.add('d-block');
+                      thisForm.reset();
+                  } else {
+                      throw new Error(data.error || 'Form submission failed');
+                  }
+              });
           } else {
-            throw new Error(`${response.status} ${response.statusText}`);
+              return response.json().then(data => {
+                  throw new Error(data.error || `Form submission failed with status: ${response.status}`);
+              });
           }
-        })
+      })
         .then(data => {
           thisForm.querySelector('.loading').classList.remove('d-block');
           if (data.success) {

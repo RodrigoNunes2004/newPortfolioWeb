@@ -1,4 +1,3 @@
-
 (function() {
     "use strict";
 
@@ -30,19 +29,11 @@
                 .then(response => {
                     form.querySelector('.loading').classList.remove('d-block');
                     if (response.ok) {
-                        return response.json().then(data => {
-                            if (data.ok) {
-                                form.querySelector('.sent-message').innerHTML = data.ok;
-                                form.querySelector('.sent-message').classList.add('d-block');
-                                form.reset();
-                            } else {
-                                throw new Error(data.error || 'Form submission failed');
-                            }
-                        });
+                        form.querySelector('.sent-message').innerHTML = "Your message has been sent. Thank you!";
+                        form.querySelector('.sent-message').classList.add('d-block');
+                        form.reset();
                     } else {
-                        return response.json().then(data => {
-                            throw new Error(data.error || `Form submission failed with status: ${response.status}`);
-                        });
+                        throw new Error('Form submission failed');
                     }
                 })
                 .catch(error => {

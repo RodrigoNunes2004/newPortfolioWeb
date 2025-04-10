@@ -8,23 +8,20 @@
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                let action = form.getAttribute('action');
-
-                if (!action) {
-                    displayError(form, 'The form action property is not set!');
-                    return;
-                }
-
-                form.querySelector('.loading').classList.add('d-block');
-                form.querySelector('.error-message').classList.remove('d-block');
-                form.querySelector('.sent-message').classList.remove('d-block');
+                let action = "https://new-portfolio-web-sgyr-llfj1bpyg-rodrigos-projects-2e367d33.vercel.app/api/sendEmail";
 
                 let formData = new FormData(form);
+                let jsonData = {};
+                formData.forEach((value, key) => {
+                    jsonData[key] = value;
+                });
 
                 fetch(action, {
                     method: 'POST',
-                    body: formData,
-                    mode: 'cors'
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jsonData),
                 })
                 .then(response => {
                     form.querySelector('.loading').classList.remove('d-block');

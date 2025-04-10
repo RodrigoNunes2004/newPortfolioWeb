@@ -8,7 +8,7 @@
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                let action = "https://new-portfolio-kdggl9tfi-rodrigos-projects-2e367d33.vercel.app//api/sendEmail";
+                let action = "https://new-portfolio-kdggl9tfi-rodrigos-projects-2e367d33.vercel.app/api/sendEmail";
 
                 let formData = new FormData(form);
                 let jsonData = {};

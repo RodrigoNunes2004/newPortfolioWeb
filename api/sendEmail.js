@@ -1,8 +1,21 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
-require('dotenv').config(); // Carregando variáveis do .env
+require('dotenv').config();
 
+// Middleware de CORS configurado manualmente nos headers
 export default async function handler(req, res) {
+    // Configurando os headers de CORS
+    res.setHeader('Access-Control-Allow-Origin', 'https://new-portfolio-rff68fvzn-rodrigos-projects-2e367d33.vercel.app'); // Permitir apenas seu domínio
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS'); // Permitir métodos específicos
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Verifica se é uma requisição de "preflight" (OPTIONS)
+    if (req.method === 'OPTIONS') {
+        res.status(200).end(); // Responde ao navegador sem executar a lógica principal
+        return;
+    }
+
+    // Verifica se o método é POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Método não permitido' });
     }
@@ -21,7 +34,7 @@ export default async function handler(req, res) {
         // Gerando o access token
         const accessToken = await oAuth2Client.getAccessToken();
 
-        // Configurando o transporte do Nodemaler
+        // Configurando o transporte do Nodemailer
         const transport = nodemailer.createTransport({
             service: 'gmail',
             auth: {

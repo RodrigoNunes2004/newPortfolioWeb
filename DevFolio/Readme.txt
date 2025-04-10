@@ -1,6 +1,4 @@
-Thanks for downloading this template!
+Name: DevFolio
+devfolio-bootstrap
+Author: Rodrigo Nunes
 
-Template Name: DevFolio
-Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
